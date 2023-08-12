@@ -6,6 +6,7 @@ export class MainWindow {
 
 	constructor() {
 		this.createWindow();
+		this.registerHandlers();
 	}
 
 	private createWindow() {
@@ -33,5 +34,23 @@ export class MainWindow {
 				)
 			);
 		}
+	}
+
+	private registerHandlers() {
+		this.browserWindow.on("closed", () => {
+			this.close();
+		});
+	}
+
+	private close(): void {
+		console.log("[MAIN WINDOW] Closing Application");
+
+		const activeWindows = BrowserWindow.getAllWindows().filter(
+			(window) => !window.isDestroyed()
+		);
+
+		activeWindows.forEach((window) => {
+			window.close();
+		});
 	}
 }
