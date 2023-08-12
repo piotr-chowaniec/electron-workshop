@@ -5,6 +5,7 @@ import { MakerSquirrel } from "@electron-forge/maker-squirrel";
 import { MakerZIP } from "@electron-forge/maker-zip";
 import { MakerDeb } from "@electron-forge/maker-deb";
 import { MakerRpm } from "@electron-forge/maker-rpm";
+import { MakerDMG } from "@electron-forge/maker-dmg";
 
 const MAIN_VITE_CONFIG_PATH = path.join(
 	__dirname,
@@ -17,6 +18,7 @@ const config: ForgeConfig = {
 	makers: [
 		new MakerSquirrel({}),
 		new MakerZIP({}, ["darwin"]),
+		new MakerDMG({}),
 		new MakerRpm({}),
 		new MakerDeb({}),
 	],

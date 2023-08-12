@@ -8,7 +8,7 @@
     "email": "piter.chowaniec@gmail.com"
   },
   "license": "MIT",
-	"engines": {
+  "engines": {
     "node": ">=18.16.1"
   },
   "main": ".vite/build/index.js",
@@ -16,7 +16,7 @@
   "workspaces": [
     "packages/main",
     "packages/renderers/*",
-		"packages/common"
+    "packages/common"
   ],
   "scripts": {
     "start": "electron-forge start",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@electron-forge/cli": "^6.3.0",
     "@electron-forge/maker-deb": "^6.3.0",
+    "@electron-forge/maker-dmg": "^6.3.0",
     "@electron-forge/maker-rpm": "^6.3.0",
     "@electron-forge/maker-squirrel": "^6.3.0",
     "@electron-forge/maker-zip": "^6.3.0",
@@ -35,7 +36,7 @@
     "@electron-forge/plugin-vite": "^6.3.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-		"electron": "25.5.0",
+    "electron": "25.5.0",
     "eslint": "^8.47.0",
     "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-react-hooks": "^4.6.0",
