@@ -2,13 +2,16 @@ import { app, ipcMain } from "electron";
 
 import { MAIN_WINDOW_ACTIONS } from "./constants";
 import { MainWindow } from "./mainWindow";
+import { LoginWindow } from "./loginWindow";
 
 interface IWindows {
 	MAIN: MainWindow;
+	LOGIN: LoginWindow;
 }
 
 const WINDOWS: IWindows = {
 	MAIN: null,
+	LOGIN: null,
 };
 
 export const setupApplication = () => {
@@ -19,7 +22,13 @@ export const setupApplication = () => {
 
 		ipcMain.on(MAIN_WINDOW_ACTIONS.OPEN_LOGIN_WINDOW, () => {
 			try {
-				console.log("[MAIN] Opening login window");
+				if (WINDOWS.LOGIN && WINDOWS.LOGIN.windowExists()) {
+					console.log("[LOGIN] Window already opened");
+					WINDOWS.LOGIN.show();
+					return;
+				}
+
+				WINDOWS.LOGIN = new LoginWindow();
 			} catch (error) {
 				console.error(error);
 			}
