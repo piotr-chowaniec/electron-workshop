@@ -1,11 +1,8 @@
 import { useForm } from "react-hook-form";
 
-import { Form, LoginButton } from "./styles";
+import { ILoginFormData } from "@electron-workshop/common";
 
-interface ILoginFormData {
-	email: string;
-	password: string;
-}
+import { Form, LoginButton } from "./styles";
 
 export const LoginForm = () => {
 	const {
@@ -21,7 +18,7 @@ export const LoginForm = () => {
 		}
 
 		try {
-			console.log("Login user", userToLogin);
+			await window.electronClient.invokeSubmitLogin(userToLogin);
 		} catch (error) {
 			console.error("Failed to login", error);
 		}

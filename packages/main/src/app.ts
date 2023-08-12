@@ -1,6 +1,8 @@
 import { app, ipcMain } from "electron";
 
-import { MAIN_WINDOW_ACTIONS } from "./constants";
+import { ILoginFormData } from "@electron-workshop/common";
+
+import { LOGIN_WINDOW_ACTIONS, MAIN_WINDOW_ACTIONS } from "./constants";
 import { MainWindow } from "./mainWindow";
 import { LoginWindow } from "./loginWindow";
 
@@ -33,6 +35,20 @@ export const setupApplication = () => {
 				console.error(error);
 			}
 		});
+
+		ipcMain.handle(
+			LOGIN_WINDOW_ACTIONS.SUBMIT,
+			async (_event, userToLogin: ILoginFormData) => {
+				try {
+					// simulate some API call
+					await new Promise((resolve) => setTimeout(resolve, 2000));
+
+					console.log("[MAIN] User authenticated", userToLogin);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		);
 	} catch (error) {
 		console.log("[MAIN] Error while initializing application", error);
 		app.quit();
