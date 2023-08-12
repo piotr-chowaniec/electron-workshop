@@ -4,6 +4,7 @@ export interface IMainWindowElectronClient {
 	sendOpenLoginWindow: () => void;
 	onAuthenticated: (callback: AuthCallbackType) => void;
 	sendLogout: () => void;
+	sendCloseWindow: () => void;
 }
 
 export interface ILoginWindowElectronClient {

@@ -46,6 +46,10 @@ export class MainWindow {
 		ipcMain.on(MAIN_WINDOW_ACTIONS.LOGOUT, () => {
 			console.log("[MAIN WINDOW] Logging out");
 		});
+
+		ipcMain.on(MAIN_WINDOW_ACTIONS.CLOSE, () => {
+			this.browserWindow.close();
+		});
 	}
 
 	private close(): void {

@@ -18,6 +18,7 @@ const electronClient: IMainWindowElectronClient = {
 				callback(userData)
 		),
 	sendLogout: () => ipcRenderer.send(MAIN_WINDOW_ACTIONS.LOGOUT),
+	sendCloseWindow: () => ipcRenderer.send(MAIN_WINDOW_ACTIONS.CLOSE),
 };
 
 contextBridge.exposeInMainWorld("electronClient", electronClient);
