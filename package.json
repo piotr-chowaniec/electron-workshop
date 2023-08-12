@@ -8,6 +8,9 @@
     "email": "piter.chowaniec@gmail.com"
   },
   "license": "MIT",
+	"engines": {
+    "node": ">=18.16.1"
+  },
   "main": ".vite/build/index.js",
   "private": true,
   "workspaces": [
