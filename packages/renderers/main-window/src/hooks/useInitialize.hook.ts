@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-const useInitialize = () => {
+import { AuthCallbackType } from "@electron-workshop/common";
+
+const useInitialize = ({
+	setCurrentUser,
+}: {
+	setCurrentUser: AuthCallbackType;
+}) => {
 	const [isInitialized, setInitialized] = useState(false);
 
 	const initialize = async () => {
@@ -8,6 +14,8 @@ const useInitialize = () => {
 			if (isInitialized) {
 				return;
 			}
+
+			window.electronClient.onAuthenticated(setCurrentUser);
 
 			// simulate some async initialization
 			await new Promise((resolve) => setTimeout(resolve, 2000));

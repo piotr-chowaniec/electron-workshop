@@ -16,6 +16,21 @@ const WINDOWS: IWindows = {
 	LOGIN: null,
 };
 
+const authenticate = async (userToLogin: ILoginFormData) => {
+	try {
+		// simulate some API call
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+
+		return {
+			id: 123456,
+			email: userToLogin.email,
+			name: "Bruce Wayne",
+		};
+	} catch (error) {
+		console.error("[MAIN] Error while authenticating user", error);
+	}
+};
+
 export const setupApplication = () => {
 	try {
 		console.log("[MAIN] Initializing application");
@@ -40,13 +55,16 @@ export const setupApplication = () => {
 			LOGIN_WINDOW_ACTIONS.SUBMIT,
 			async (_event, userToLogin: ILoginFormData) => {
 				try {
-					// simulate some API call
-					await new Promise((resolve) => setTimeout(resolve, 2000));
-
-					console.log("[MAIN] User authenticated", userToLogin);
+					const user = await authenticate(userToLogin);
+					console.log("[MAIN] User authenticated");
 
 					WINDOWS.LOGIN.close();
 					WINDOWS.LOGIN = null;
+
+					WINDOWS.MAIN.sendToWindow(
+						MAIN_WINDOW_ACTIONS.AUTHENTICATED,
+						user
+					);
 				} catch (error) {
 					console.error(error);
 				}

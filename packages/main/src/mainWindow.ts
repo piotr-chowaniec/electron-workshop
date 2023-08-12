@@ -53,4 +53,12 @@ export class MainWindow {
 			window.close();
 		});
 	}
+
+	public sendToWindow(channel: string, ...args: unknown[]) {
+		if (!this.browserWindow) {
+			return;
+		}
+
+		this.browserWindow.webContents.send(channel, ...args);
+	}
 }

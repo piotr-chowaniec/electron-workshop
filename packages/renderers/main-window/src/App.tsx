@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { IUserData } from "@electron-workshop/common";
+
 import useInitialize from "./hooks/useInitialize.hook";
 import {
 	Container,
@@ -11,8 +13,8 @@ import { Login } from "./Login";
 import { CloseButton } from "./CloseButton";
 
 const MainWindow = () => {
-	const [currentUser, setCurrentUser] = useState<null>(null);
-	const { isInitialized } = useInitialize();
+	const [currentUser, setCurrentUser] = useState<IUserData | null>(null);
+	const { isInitialized } = useInitialize({ setCurrentUser });
 
 	const onLogout = () => {
 		setCurrentUser(null);
