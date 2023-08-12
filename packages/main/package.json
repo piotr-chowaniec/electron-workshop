@@ -1,0 +1,12 @@
+{
+  "name": "@electron-workshop/main",
+  "version": "1.0.0",
+  "private": true,
+	"dependencies": {
+		"@electron-workshop/common": "1.0.0"
+	},
+  "devDependencies": {
+    "electron": "25.5.0",
+    "typescript": "^5.1.6"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "target": "ES6",
+    "module": "ESNext",
+		"types": ["node"],
+    "moduleResolution": "node",
+    "sourceMap": false,
+		"noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+}
