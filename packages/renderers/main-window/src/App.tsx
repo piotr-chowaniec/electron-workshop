@@ -18,6 +18,7 @@ const MainWindow = () => {
 
 	const onLogout = () => {
 		setCurrentUser(null);
+		window.electronClient.sendLogout();
 	};
 
 	if (!isInitialized) {

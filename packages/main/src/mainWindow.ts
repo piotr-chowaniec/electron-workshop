@@ -1,5 +1,7 @@
 import path from "node:path";
-import { BrowserWindow } from "electron";
+import { BrowserWindow, ipcMain } from "electron";
+
+import { MAIN_WINDOW_ACTIONS } from "./constants";
 
 export class MainWindow {
 	private browserWindow: BrowserWindow;
@@ -39,6 +41,10 @@ export class MainWindow {
 	private registerHandlers() {
 		this.browserWindow.on("closed", () => {
 			this.close();
+		});
+
+		ipcMain.on(MAIN_WINDOW_ACTIONS.LOGOUT, () => {
+			console.log("[MAIN WINDOW] Logging out");
 		});
 	}
 
