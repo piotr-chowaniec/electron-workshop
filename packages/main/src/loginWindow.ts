@@ -51,4 +51,9 @@ export class LoginWindow {
 		console.log("[LOGIN] Show window");
 		this.browserWindow.show();
 	}
+
+	public close(): void {
+		console.log("[LOGIN] Closing");
+		this.browserWindow.close();
+	}
 }

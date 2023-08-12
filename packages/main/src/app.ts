@@ -44,6 +44,9 @@ export const setupApplication = () => {
 					await new Promise((resolve) => setTimeout(resolve, 2000));
 
 					console.log("[MAIN] User authenticated", userToLogin);
+
+					WINDOWS.LOGIN.close();
+					WINDOWS.LOGIN = null;
 				} catch (error) {
 					console.error(error);
 				}
