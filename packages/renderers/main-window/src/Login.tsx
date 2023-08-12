@@ -2,7 +2,7 @@ import { LoginButton, LoginContainer } from "./styles";
 
 export const Login = () => {
 	const openLoginWindow = () => {
-		console.log("Open login window");
+		window.electronClient.sendOpenLoginWindow();
 	};
 
 	return (
