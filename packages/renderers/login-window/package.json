@@ -1,5 +1,5 @@
 {
-  "name": "@electron-workshop/loading-window",
+  "name": "@electron-workshop/login-window",
   "version": "0.0.0",
   "private": true,
   "type": "module",

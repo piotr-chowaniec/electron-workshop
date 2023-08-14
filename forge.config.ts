@@ -55,7 +55,7 @@ const config: ForgeConfig = {
 						name: "login_window",
 						config: path.join(
 							__dirname,
-							"packages/renderers/loading-window/vite.config.ts"
+							"packages/renderers/login-window/vite.config.ts"
 						),
 					},
 				],
