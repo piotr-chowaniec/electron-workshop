@@ -1,9 +1,9 @@
 import { CloseButton as Button } from "./styles";
 
 export const CloseButton = () => {
-	const openLoginWindow = () => {
+	const closeWindow = () => {
 		window.electronClient.sendCloseWindow();
 	};
 
-	return <Button onClick={openLoginWindow}>Close</Button>;
+	return <Button onClick={closeWindow}>Close</Button>;
 };

@@ -1,0 +1,29 @@
+name: Building distributables
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-distributables:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.16.1"
+          cache: "yarn"
+
+      - name: Install packages
+        run: yarn
+
+      - name: Build distributable
+        run: yarn make
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-binary
+          path: out/make
