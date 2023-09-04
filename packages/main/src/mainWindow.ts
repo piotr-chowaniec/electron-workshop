@@ -2,21 +2,41 @@ import path from "node:path";
 import { BrowserWindow, ipcMain } from "electron";
 
 import { MAIN_WINDOW_ACTIONS } from "./constants";
+import { Settings } from "./Settings";
+import { Window } from "./Window";
+
+const MAIN_WINDOW_PREFERENCES = {
+	width: 400,
+	height: 400,
+	x: 200,
+	y: 200,
+
+	frame: true,
+	resizable: false,
+	fullscreen: false,
+	fullscreenable: false,
+	maximizable: false,
+};
 
 export class MainWindow {
 	private browserWindow: BrowserWindow;
+	private window: Window;
 
-	constructor() {
+	constructor(settings: Settings) {
+		this.window = new Window({
+			windowName: "main",
+			windowPreferences: MAIN_WINDOW_PREFERENCES,
+			settings,
+		});
+
 		this.createWindow();
 		this.registerHandlers();
 	}
 
 	private createWindow() {
+		const windowOptions = this.window.getWindowAttributes();
 		this.browserWindow = new BrowserWindow({
-			width: 400,
-			height: 400,
-			x: 200,
-			y: 200,
+			...windowOptions,
 			webPreferences: {
 				nodeIntegration: false,
 				contextIsolation: true,
@@ -30,15 +50,15 @@ export class MainWindow {
 			this.browserWindow.webContents.openDevTools({ mode: "detach" });
 		} else {
 			this.browserWindow.loadFile(
-				path.join(
-					__dirname,
-					`../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`
-				)
+				path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
 			);
 		}
 	}
 
 	private registerHandlers() {
+		this.browserWindow.on("move", () => {
+			this.window.saveCurrentWindowPosition(this.browserWindow.getBounds());
+		});
 		this.browserWindow.on("closed", () => {
 			this.close();
 		});

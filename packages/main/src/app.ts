@@ -1,8 +1,10 @@
+import path from "node:path";
 import { app, ipcMain } from "electron";
 
 import { ILoginFormData } from "@electron-workshop/common";
 
 import { LOGIN_WINDOW_ACTIONS, MAIN_WINDOW_ACTIONS } from "./constants";
+import { Settings } from "./Settings";
 import { MainWindow } from "./mainWindow";
 import { LoginWindow } from "./loginWindow";
 
@@ -31,11 +33,15 @@ const authenticate = async (userToLogin: ILoginFormData) => {
 	}
 };
 
-export const setupApplication = () => {
+export const setupApplication = async () => {
 	try {
 		console.log("[MAIN] Initializing application");
 
-		WINDOWS.MAIN = new MainWindow();
+		const settings = new Settings();
+		const settingsPath = path.join(app.getPath("userData"), "settings.json");
+		await settings.init(settingsPath);
+
+		WINDOWS.MAIN = new MainWindow(settings);
 
 		ipcMain.on(MAIN_WINDOW_ACTIONS.OPEN_LOGIN_WINDOW, () => {
 			try {
@@ -45,7 +51,7 @@ export const setupApplication = () => {
 					return;
 				}
 
-				WINDOWS.LOGIN = new LoginWindow();
+				WINDOWS.LOGIN = new LoginWindow(settings);
 			} catch (error) {
 				console.error(error);
 			}
@@ -61,10 +67,7 @@ export const setupApplication = () => {
 					WINDOWS.LOGIN.close();
 					WINDOWS.LOGIN = null;
 
-					WINDOWS.MAIN.sendToWindow(
-						MAIN_WINDOW_ACTIONS.AUTHENTICATED,
-						user
-					);
+					WINDOWS.MAIN.sendToWindow(MAIN_WINDOW_ACTIONS.AUTHENTICATED, user);
 				} catch (error) {
 					console.error(error);
 				}
